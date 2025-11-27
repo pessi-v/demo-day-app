@@ -1,0 +1,12 @@
+{
+  "name": "demo-day-app",
+  "description": "demo-day-app - Carbonara project",
+  "type": "web",
+  "version": 1,
+  "createdAt": "2025-11-27T18:11:35.300Z",
+  "projectId": 1,
+  "database": {
+    "path": ".carbonara/carbonara.db"
+  },
+  "tools": {}
+}
