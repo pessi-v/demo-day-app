@@ -197,4 +197,4 @@ If there are questions:
 
 ---
 
-**Good luck with the demo!** 🌱🚀
+**Good luck with the demo!**

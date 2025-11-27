@@ -97,4 +97,4 @@ Press `Ctrl+C` in each terminal to stop the servers.
 
 ---
 
-Ready for demo day! 🚀
+Ready for demo day!

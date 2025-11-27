@@ -44,7 +44,7 @@ To analyze this infrastructure with Carbonara:
 
 ## If You Want to Actually Deploy
 
-⚠️ **Warning**: This will create real AWS resources and incur costs!
+**Warning**: This will create real AWS resources and incur costs!
 
 ```bash
 # Create a dummy lambda package (for terraform validation only)

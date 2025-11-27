@@ -2,7 +2,7 @@
 
 A full-stack web application intentionally built with performance and sustainability anti-patterns to demonstrate the capabilities of the **Carbonara** VSCode extension - a tool for analyzing and reducing CO2 emissions in software projects.
 
-## 🎯 Purpose
+## Purpose
 
 This demo application showcases how Carbonara can:
 - Detect performance anti-patterns in frontend (JavaScript/React) and backend (Python) code
@@ -10,14 +10,14 @@ This demo application showcases how Carbonara can:
 - Analyze cloud infrastructure deployments for carbon optimization
 - Provide actionable recommendations to reduce software carbon footprint
 
-## 🏗️ Architecture
+## Architecture
 
 - **Frontend**: React 18 + Vite (JavaScript)
 - **Backend**: FastAPI (Python 3.11+)
 - **Database**: SQLite (local dev) / PostgreSQL (production)
 - **Infrastructure**: AWS Lambda + RDS (configured for us-east-1)
 
-## 📋 Intentional Anti-Patterns
+## Intentional Anti-Patterns
 
 This application is deliberately written with anti-patterns that Carbonara will detect:
 
@@ -51,7 +51,7 @@ This application is deliberately written with anti-patterns that Carbonara will 
 | High-carbon region | Deployment to us-east-1 | `terraform/main.tf:22` | ~400 gCO2/kWh |
 | **Recommendation** | Migrate to eu-north-1 | | ~45 gCO2/kWh (89% reduction) |
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -98,7 +98,7 @@ Open your browser to `http://localhost:5173` and you should see:
 - A task list with sample data
 - Analytics showing user summaries
 
-## 🔍 Running Carbonara Analysis
+## Running Carbonara Analysis
 
 ### Step 1: Open in VSCode
 
@@ -137,7 +137,7 @@ Carbonara should detect approximately **20+ issues**:
 - ✗ High-carbon AWS region (us-east-1)
 - → Recommended: eu-north-1 for 89% CO2 reduction
 
-## 📊 Expected Carbon Impact
+## Expected Carbon Impact
 
 ### Code Optimizations
 
@@ -158,7 +158,7 @@ For a typical workload (1 kWh/day):
 - Annual CO2 savings: ~130 kg per deployment
 - Equivalent to: ~450 km of driving avoided
 
-## 🛠️ Fixing the Issues
+## Fixing the Issues
 
 After Carbonara identifies the issues, you can:
 
@@ -194,7 +194,7 @@ import { orderBy } from 'lodash'
 const sorted = orderBy(items, ['priority'], ['desc'])
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 demo-day-app/
@@ -233,7 +233,7 @@ demo-day-app/
 └── README.md                      # This file
 ```
 
-## 🎓 Learning Objectives
+## Learning Objectives
 
 This demo helps developers understand:
 
@@ -243,18 +243,18 @@ This demo helps developers understand:
 4. **Infrastructure Matters**: Regional carbon intensity varies dramatically
 5. **Measurement**: Tools like Carbonara make sustainability measurable
 
-## 🤝 Contributing
+## Contributing
 
 This is a demo application for Carbonara. Feel free to:
 - Add more anti-patterns for Carbonara to detect
 - Improve the documentation
 - Suggest new rules for Carbonara
 
-## 📝 License
+## License
 
 MIT License - This is a demo application for educational purposes.
 
-## 🔗 Related Links
+## Related Links
 
 - [Carbonara VSCode Extension](#) - Your link here
 - [Green Software Foundation](https://greensoftware.foundation/)
@@ -263,4 +263,4 @@ MIT License - This is a demo application for educational purposes.
 
 ---
 
-**Built with intentional anti-patterns for Carbonara demo day** 🌱
+**Built with intentional anti-patterns for Carbonara demo day**
