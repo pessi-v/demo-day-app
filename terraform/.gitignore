@@ -6,3 +6,5 @@
 
 # Lambda deployment package (placeholder for demo)
 lambda_function.zip
+
+.carbonara/carbonara.config.json
