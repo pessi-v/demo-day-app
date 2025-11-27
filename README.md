@@ -5,6 +5,7 @@ A full-stack web application intentionally built with performance and sustainabi
 ## Purpose
 
 This demo application showcases how Carbonara can:
+
 - Detect performance anti-patterns in frontend (JavaScript/React) and backend (Python) code
 - Identify inefficient database queries and operations
 - Analyze cloud infrastructure deployments for carbon optimization
@@ -16,40 +17,6 @@ This demo application showcases how Carbonara can:
 - **Backend**: FastAPI (Python 3.11+)
 - **Database**: SQLite (local dev) / PostgreSQL (production)
 - **Infrastructure**: AWS Lambda + RDS (configured for us-east-1)
-
-## Intentional Anti-Patterns
-
-This application is deliberately written with anti-patterns that Carbonara will detect:
-
-### Python Backend (15+ Issues)
-
-| Rule ID | Anti-Pattern | Location | Impact |
-|---------|-------------|----------|--------|
-| gci4 | Global variables | `database.py:8` | Memory leaks |
-| gci72 | SQL queries in loops | `tasks.py:47`, `analytics.py:42` | Database overhead |
-| gci74 | SELECT * queries | `tasks.py:29`, `tasks.py:51` | Unnecessary data transfer |
-| gci2 | Multiple if-else chains | `tasks.py:99`, `analytics.py:92` | CPU overhead |
-| gci105 | String concatenation with += | `report_service.py:16-40` | Memory allocation overhead |
-| gci404 | List comprehension in loops | `report_service.py:32` | Unnecessary memory usage |
-| gci103 | Dict .items() when only values needed | `analytics.py:24` | Iterator overhead |
-| gci7 | Getter/setter methods | `models/task.py:15-45` | Method call overhead |
-
-### JavaScript Frontend (8+ Issues)
-
-| Rule ID | Anti-Pattern | Location | Impact |
-|---------|-------------|----------|--------|
-| gci11 | Multiple DOM element access | `TaskList.jsx:10-12` | DOM reflow overhead |
-| gci12 | Multiple style changes | `TaskList.jsx:25-28`, `Dashboard.jsx:52-54` | Rendering overhead |
-| gci29 | CSS animations/transitions | `Dashboard.jsx:38-40`, `Analytics.jsx:96` | GPU usage |
-| gci26 | Non-shorthand CSS properties | `Dashboard.jsx:66-72`, `Analytics.jsx:54-60` | Stylesheet size |
-| gci9 | Full library imports | `Analytics.jsx:4`, `helpers.js:3` | Bundle size |
-
-### Infrastructure (1 Issue)
-
-| Issue | Description | Location | Impact |
-|-------|-------------|----------|--------|
-| High-carbon region | Deployment to us-east-1 | `terraform/main.tf:22` | ~400 gCO2/kWh |
-| **Recommendation** | Migrate to eu-north-1 | | ~45 gCO2/kWh (89% reduction) |
 
 ## Quick Start
 
@@ -94,6 +61,7 @@ The app will be available at `http://localhost:5173`
 ### 3. Access the Application
 
 Open your browser to `http://localhost:5173` and you should see:
+
 - A dashboard with task statistics
 - A task list with sample data
 - Analytics showing user summaries
@@ -117,6 +85,7 @@ code /Users/pes/code/demo-day-app
 Carbonara should detect approximately **20+ issues**:
 
 #### Backend Issues (~15 findings)
+
 - ✗ SQL queries without LIMIT clauses
 - ✗ Database queries inside loops
 - ✗ String concatenation with +=
@@ -127,6 +96,7 @@ Carbonara should detect approximately **20+ issues**:
 - ✗ Getter/setter methods instead of properties
 
 #### Frontend Issues (~8 findings)
+
 - ✗ Multiple accesses to same DOM elements
 - ✗ Unbatched style changes
 - ✗ Unnecessary CSS animations
@@ -134,65 +104,17 @@ Carbonara should detect approximately **20+ issues**:
 - ✗ Importing entire lodash library
 
 #### Infrastructure Issues (~1 finding)
+
 - ✗ High-carbon AWS region (us-east-1)
 - → Recommended: eu-north-1 for 89% CO2 reduction
 
-## Expected Carbon Impact
-
-### Code Optimizations
-
-Fixing the detected anti-patterns can reduce:
-- **CPU usage**: 15-30% (fewer loops, better algorithms)
-- **Memory usage**: 20-40% (string handling, comprehensions)
-- **Network transfer**: 30-50% (SQL optimization, bundle size)
-- **Frontend rendering**: 10-20% (DOM batching, CSS optimization)
-
-### Infrastructure Optimization
+## Infrastructure Optimization
 
 Migrating from us-east-1 to eu-north-1:
+
 - **Current**: 400 gCO2/kWh
 - **Optimized**: 45 gCO2/kWh
 - **Reduction**: 89%
-
-For a typical workload (1 kWh/day):
-- Annual CO2 savings: ~130 kg per deployment
-- Equivalent to: ~450 km of driving avoided
-
-## Fixing the Issues
-
-After Carbonara identifies the issues, you can:
-
-1. **Auto-fix** (where available): Click the "Fix" button in Carbonara
-2. **Manual fix**: Follow the recommendations in the Carbonara panel
-3. **Learn**: Read the explanation for each rule to understand why it matters
-
-### Example Fixes
-
-**Before** (SQL in loop):
-```python
-for user_id in user_ids:
-    cursor.execute(f"SELECT * FROM tasks WHERE user_id = {user_id}")
-```
-
-**After**:
-```python
-query = "SELECT id, title, status FROM tasks WHERE user_id IN ({})".format(
-    ','.join('?' * len(user_ids))
-)
-cursor.execute(query, user_ids)
-```
-
-**Before** (Full lodash import):
-```javascript
-import _ from 'lodash'
-const sorted = _.orderBy(items, ['priority'], ['desc'])
-```
-
-**After**:
-```javascript
-import { orderBy } from 'lodash'
-const sorted = orderBy(items, ['priority'], ['desc'])
-```
 
 ## Project Structure
 
@@ -233,22 +155,39 @@ demo-day-app/
 └── README.md                      # This file
 ```
 
-## Learning Objectives
+## Intentional Anti-Patterns
 
-This demo helps developers understand:
+This application is deliberately written with anti-patterns that Carbonara will detect:
 
-1. **Performance = Sustainability**: Inefficient code uses more energy
-2. **Database Optimization**: Query efficiency impacts both speed and energy
-3. **Frontend Impact**: DOM operations and bundle size affect energy consumption
-4. **Infrastructure Matters**: Regional carbon intensity varies dramatically
-5. **Measurement**: Tools like Carbonara make sustainability measurable
+### Python Backend (15+ Issues)
 
-## Contributing
+| Rule ID | Anti-Pattern                          | Location                         | Impact                     |
+| ------- | ------------------------------------- | -------------------------------- | -------------------------- |
+| gci4    | Global variables                      | `database.py:8`                  | Memory leaks               |
+| gci72   | SQL queries in loops                  | `tasks.py:47`, `analytics.py:42` | Database overhead          |
+| gci74   | SELECT \* queries                     | `tasks.py:29`, `tasks.py:51`     | Unnecessary data transfer  |
+| gci2    | Multiple if-else chains               | `tasks.py:99`, `analytics.py:92` | CPU overhead               |
+| gci105  | String concatenation with +=          | `report_service.py:16-40`        | Memory allocation overhead |
+| gci404  | List comprehension in loops           | `report_service.py:32`           | Unnecessary memory usage   |
+| gci103  | Dict .items() when only values needed | `analytics.py:24`                | Iterator overhead          |
+| gci7    | Getter/setter methods                 | `models/task.py:15-45`           | Method call overhead       |
 
-This is a demo application for Carbonara. Feel free to:
-- Add more anti-patterns for Carbonara to detect
-- Improve the documentation
-- Suggest new rules for Carbonara
+### JavaScript Frontend (8+ Issues)
+
+| Rule ID | Anti-Pattern                 | Location                                     | Impact              |
+| ------- | ---------------------------- | -------------------------------------------- | ------------------- |
+| gci11   | Multiple DOM element access  | `TaskList.jsx:10-12`                         | DOM reflow overhead |
+| gci12   | Multiple style changes       | `TaskList.jsx:25-28`, `Dashboard.jsx:52-54`  | Rendering overhead  |
+| gci29   | CSS animations/transitions   | `Dashboard.jsx:38-40`, `Analytics.jsx:96`    | GPU usage           |
+| gci26   | Non-shorthand CSS properties | `Dashboard.jsx:66-72`, `Analytics.jsx:54-60` | Stylesheet size     |
+| gci9    | Full library imports         | `Analytics.jsx:4`, `helpers.js:3`            | Bundle size         |
+
+### Infrastructure (1 Issue)
+
+| Issue              | Description             | Location               | Impact                       |
+| ------------------ | ----------------------- | ---------------------- | ---------------------------- |
+| High-carbon region | Deployment to us-east-1 | `terraform/main.tf:22` | ~400 gCO2/kWh                |
+| **Recommendation** | Migrate to eu-north-1   |                        | ~45 gCO2/kWh (89% reduction) |
 
 ## License
 
@@ -260,7 +199,3 @@ MIT License - This is a demo application for educational purposes.
 - [Green Software Foundation](https://greensoftware.foundation/)
 - [Website Carbon Calculator](https://www.websitecarbon.com/)
 - [Electricity Maps](https://app.electricitymaps.com/)
-
----
-
-**Built with intentional anti-patterns for Carbonara demo day**
